@@ -1,6 +1,6 @@
 {
   "name": "ver-test",
-  "version": "3.0.0-2",
+  "version": "3.0.0-3.0",
   "description": "Test for development",
   "main": "index.js",
   "scripts": {
