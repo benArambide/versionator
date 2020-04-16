@@ -74,7 +74,7 @@ var Common = (function() {
     var includePushTag = tag === 'true' ? '--tags' : '';
     var tagCMD = tag === 'true' ? `git tag ${package_json.version} ${includePushTag};` : '';
 
-    var cmdExec = `${commitCMD}${pushCMD}`;
+    var cmdExec = `${commitCMD}${pushCMD}${tagCMD}`;
 
     if(cmdExec !== '') {
         Common.log('git settings');
