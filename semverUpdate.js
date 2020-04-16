@@ -35,7 +35,7 @@ var Common = (function() {
 
 (function() {
     var argv = require('minimist')(process.argv.slice(2));
-
+    console.log(argv);
     var inc = argv.inc || null;
     var preid = argv.preid || null;
     var commmit = argv.commit || 'true';
