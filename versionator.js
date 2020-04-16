@@ -70,9 +70,9 @@ var Common = (function() {
     });
 
     var commitCMD = commmit == 'true' ? `git add . ; git commit -m "${package_json.version}";` : '';
-    var pushCMD = push === 'true' ? 'git push origin HEAD;' : '';
-    var includePushTag = tag === 'true' ? '' : '';
-    var tagCMD = tag === 'true' ? `git tag ${package_json.version} ${includePushTag};` : '';
+    var includePushTag = tag === 'true' ? '--tags' : '';
+    var pushCMD = push === 'true' ? `git push origin HEAD ${includePushTag};` : '';
+    var tagCMD = tag === 'true' ? `git tag ${package_json.version};` : '';
 
     var cmdExec = `${commitCMD}${pushCMD}${tagCMD}`;
 
