@@ -5,27 +5,29 @@ var fs = require('fs');
 
 var Common = (function() {
     var commonPublicAPI = {};
+    var SEMVER_PREFIX = 'SEMVER:';
+    var addPrefix = function(message) { return `${addPrefix} ${message}`; };
 
     commonPublicAPI.printError = function(msg) {
     if (process.env.SEMVER_UPDATE_SILENT  === 'true') return false;
     if (msg instanceof Error)
-        return console.error(msg.message);
+        return console.error(addPrefix(msg.message));
     return console.error.apply(console, arguments);
     };
     
     commonPublicAPI.log = function(msg) {
     if (process.env.SEMVER_UPDATE_SILENT  === 'true') return false;
-    return console.log(`${msg}`);
+        return console.log(addPrefix(msg));
     }
     
     commonPublicAPI.warn = function(msg) {
     if (process.env.SEMVER_UPDATE_SILENT  === 'true') return false;
-    return console.log(`${msg}`);
+        return console.log(addPrefix(msg));
     }
     
     commonPublicAPI.printOut = function() {
     if (process.env.SEMVER_UPDATE_SILENT === 'true'  === 'true') return false;
-    return console.log.apply(console, arguments);
+        return console.log.apply(console, arguments);
     };
 
     return commonPublicAPI;
@@ -61,7 +63,8 @@ var Common = (function() {
     if(cmdExec !== '') {
         Common.printOut('Pushing module on Git');
         require('shelljs').exec(cmdExec, function(code) {
-            Common.printOut(`The version was pushed`);
+            Boolean(commitCMD) && Common.printOut(`The version was commited!`);
+            Boolean(pushCMD) && Common.printOut(`The version was pushed!`);
             return;
         });
     }
