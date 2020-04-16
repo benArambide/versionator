@@ -5,28 +5,28 @@ var fs = require('fs');
 
 var Common = (function() {
     var commonPublicAPI = {};
-    var SEMVER_PREFIX = 'SEMVER:';
-    var addPrefix = function(message) { return `${SEMVER_PREFIX} ${message}`; };
+    var VERSIONATOR_PREFIX = 'VERSIONATOR:';
+    var addPrefix = function(message) { return `${VERSIONATOR_PREFIX} ${message}`; };
 
     commonPublicAPI.printError = function(msg) {
-    if (process.env.SEMVER_UPDATE_SILENT  === 'true') return false;
+    if (process.env.VERSIONATOR_UPDATE_SILENT  === 'true') return false;
     if (msg instanceof Error)
         return console.error(addPrefix(msg.message));
     return console.error.apply(console, arguments);
     };
     
     commonPublicAPI.log = function(msg) {
-    if (process.env.SEMVER_UPDATE_SILENT  === 'true') return false;
+    if (process.env.VERSIONATOR_UPDATE_SILENT  === 'true') return false;
         return console.log(addPrefix(msg));
     }
     
     commonPublicAPI.warn = function(msg) {
-    if (process.env.SEMVER_UPDATE_SILENT  === 'true') return false;
+    if (process.env.VERSIONATOR_UPDATE_SILENT  === 'true') return false;
         return console.log(addPrefix(msg));
     }
     
     commonPublicAPI.printOut = function() {
-    if (process.env.SEMVER_UPDATE_SILENT === 'true'  === 'true') return false;
+    if (process.env.VERSIONATOR_UPDATE_SILENT === 'true'  === 'true') return false;
         return console.log.apply(console, arguments);
     };
 
@@ -35,7 +35,7 @@ var Common = (function() {
 
 (function() {
     var argv = require('minimist')(process.argv.slice(2));
-    console.log(argv);
+
     var inc = argv.inc || null;
     var preid = argv.preid || null;
     var commmit = argv.commit || 'true';
