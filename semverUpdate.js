@@ -36,6 +36,8 @@ var Common = (function() {
 
     var inc = argv.inc || null;
     var preid = argv.preid || null;
+    var commmit = argv.commit || 'true';
+    var push = argv.push || 'false';
 
     var package_file = path.join(process.cwd(), 'package.json');
     var package_json = require(package_file);
@@ -51,10 +53,17 @@ var Common = (function() {
         };
     });
 
-    Common.printOut('Pushing module on Git');
-    require('shelljs').exec('git add . ; git commit -m "' + package_json.version + '"; git push origin HEAD', function(code) {
-        Common.printOut(`The version was pushed`);
-        return;
-    });
+    var commitCMD = commmit == 'true' ? `git add . ; git commit -m "${package_json.version}";` : '';
+    var pushCMD = push === 'true' ? 'git push origin HEAD;' : '';
+
+    var cmdExec = `${commitCMD}${pushCMD}`;
+
+    if(cmdExec !== '') {
+        Common.printOut('Pushing module on Git');
+        require('shelljs').exec(cmdExec, function(code) {
+            Common.printOut(`The version was pushed`);
+            return;
+        });
+    }
 
 })();
