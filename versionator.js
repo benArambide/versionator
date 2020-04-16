@@ -42,9 +42,15 @@ var Common = (function() {
     var tag = argv.tag || 'false';
 
     var validInc = ['major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch', 'prerelease'];
+    var isValidInc = function(paramValue) { return paramValue && validInc.includes(paramValue); };
+
     var package_file = path.join(process.cwd(), 'package.json');
     var package_json = require(package_file);
-    var isValidInc = function(paramValue) { return paramValue && validInc.includes(paramValue); };
+
+    if(semver.valid(package_json.version) == null) {
+        throw new Error('You dont have a valid version in your package.json');
+        return;
+    }
 
     if(!isValidInc(inc)) {
         throw new Error('An invalid argument was supplied');
@@ -52,6 +58,7 @@ var Common = (function() {
     }
 
     package_json.version = semver.inc(package_json.version, inc, preid);
+
     Common.log(`The version was updated to ${package_json.version}`);
 
     fs.writeFile(package_file, JSON.stringify(package_json, null, 2), function(err, data) {

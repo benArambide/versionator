@@ -1,6 +1,6 @@
 {
   "name": "ver-test",
-  "version": null,
+  "version": "5.0.2",
   "description": "Test for development",
   "main": "index.js",
   "scripts": {
