@@ -1,11 +1,17 @@
 {
   "name": "ver-test",
-  "version": "3.0.0-5.0",
+  "version": "4.3.0",
   "description": "Test for development",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "semver": "node semverUpdate.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "minimist": "^1.2.5",
+    "semver": "^7.3.0",
+    "shelljs": "^0.8.3"
+  }
 }
