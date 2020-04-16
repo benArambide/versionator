@@ -27,7 +27,6 @@ var Common = (function() {
     
     commonPublicAPI.printOut = function() {
     if (process.env.SEMVER_UPDATE_SILENT === 'true'  === 'true') return false;
-    console.log('arguments', arguments);
         return console.log.apply(console, arguments);
     };
 
@@ -46,7 +45,7 @@ var Common = (function() {
     var package_json = require(package_file);
 
     package_json.version = semver.inc(package_json.version, inc, preid);
-    Common.printOut(`The version was updated to ${package_json.version}`);
+    Common.log(`The version was updated to ${package_json.version}`);
 
     fs.writeFile(package_file, JSON.stringify(package_json, null, 2), function(err, data) {
         if (err) {
@@ -62,10 +61,10 @@ var Common = (function() {
     var cmdExec = `${commitCMD}${pushCMD}`;
 
     if(cmdExec !== '') {
-        Common.printOut('Pushing module on Git');
+        Common.log('Pushing module on Git');
         require('shelljs').exec(cmdExec, function(code) {
-            Boolean(commitCMD) && Common.printOut(`The version was commited!`);
-            Boolean(pushCMD) && Common.printOut(`The version was pushed!`);
+            Boolean(commitCMD) && Common.log(`The version was commited!`);
+            Boolean(pushCMD) && Common.log(`The version was pushed!`);
             return;
         });
     }
