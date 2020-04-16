@@ -6,7 +6,7 @@ var fs = require('fs');
 var Common = (function() {
     var commonPublicAPI = {};
     var SEMVER_PREFIX = 'SEMVER:';
-    var addPrefix = function(message) { return `${addPrefix} ${message}`; };
+    var addPrefix = function(message) { return `${SEMVER_PREFIX} ${message}`; };
 
     commonPublicAPI.printError = function(msg) {
     if (process.env.SEMVER_UPDATE_SILENT  === 'true') return false;
