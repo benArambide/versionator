@@ -1,4 +1,3 @@
-
 var path = require('path');
 var semver = require('semver');
 var fs = require('fs');
@@ -40,9 +39,17 @@ var Common = (function() {
     var preid = argv.preid || null;
     var commmit = argv.commit || 'true';
     var push = argv.push || 'false';
+    var tag = argv.tag || 'false';
 
+    var validInc = ['major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch', 'prerelease'];
     var package_file = path.join(process.cwd(), 'package.json');
     var package_json = require(package_file);
+    var isValidInc = function(paramValue) { return paramValue && validInc.includes(paramValue); };
+
+    if(!isValidInc(inc)) {
+        throw new Error('An invalid argument was supplied');
+        return;
+    }
 
     package_json.version = semver.inc(package_json.version, inc, preid);
     Common.log(`The version was updated to ${package_json.version}`);
@@ -57,13 +64,16 @@ var Common = (function() {
 
     var commitCMD = commmit == 'true' ? `git add . ; git commit -m "${package_json.version}";` : '';
     var pushCMD = push === 'true' ? 'git push origin HEAD;' : '';
+    var includePushTag = tag === 'true' ? '--tags' : '';
+    var tagCMD = tag === 'true' ? `git tag ${package_json.version} ${includePushTag};` : '';
 
     var cmdExec = `${commitCMD}${pushCMD}`;
 
     if(cmdExec !== '') {
-        Common.log('Pushing module on Git');
+        Common.log('git settings');
         require('shelljs').exec(cmdExec, function(code) {
             Boolean(commitCMD) && Common.log(`The version was commited!`);
+            Boolean(tagCMD) && Common.log(`Tag was created!`);
             Boolean(pushCMD) && Common.log(`The version was pushed!`);
             return;
         });
