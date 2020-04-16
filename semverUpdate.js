@@ -27,6 +27,7 @@ var Common = (function() {
     
     commonPublicAPI.printOut = function() {
     if (process.env.SEMVER_UPDATE_SILENT === 'true'  === 'true') return false;
+    console.log('arguments', arguments);
         return console.log.apply(console, arguments);
     };
 
