@@ -74,7 +74,7 @@ var Common = (function() {
     var pushCMD = push === 'true' ? `git push origin HEAD ${includePushTag};` : '';
     var tagCMD = tag === 'true' ? `git tag ${package_json.version};` : '';
 
-    var cmdExec = `${commitCMD}${pushCMD}${tagCMD}`;
+    var cmdExec = `${commitCMD}${tagCMD}${pushCMD}`;
 
     if(cmdExec !== '') {
         Common.log('git settings');
