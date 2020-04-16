@@ -53,7 +53,7 @@ var Common = (function() {
 
     Common.printOut('Pushing module on Git');
     require('shelljs').exec('git add . ; git commit -m "' + package_json.version + '"; git push origin HEAD', function(code) {
-        Common.printOut(`Pushed`);
+        Common.printOut(`The version was pushed`);
         return;
     });
 
